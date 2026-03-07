@@ -1,0 +1,245 @@
+/* src/components/Landing.css */
+.landing-container {
+    overflow-x: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #1a1a1a;
+}
+
+.hero-section {
+    min-height: 85vh;
+    position: relative;
+    background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.highlight-text {
+    background: linear-gradient(120deg, #2563eb, #7c3aed);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.custom-btn-primary {
+    background: linear-gradient(45deg, #2563eb, #1d4ed8);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.custom-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+    color: white;
+}
+
+.custom-btn-outline {
+    border: 2px solid #2563eb;
+    color: #2563eb !important;
+    padding: 0.5rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-btn-outline:hover {
+    background: rgba(37, 99, 235, 0.05);
+    color: #1d4ed8 !important;
+    border-color: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.stat-item h3 {
+    color: #111827;
+    font-size: 2rem;
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    z-index: 10;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.red {
+    background-color: #ef4444;
+}
+
+.dot.yellow {
+    background-color: #f59e0b;
+}
+
+.dot.green {
+    background-color: #10b981;
+}
+
+.chat-bubble {
+    font-size: 0.95rem;
+    max-width: 85%;
+    line-height: 1.5;
+}
+
+.bot-bubble {
+    background: linear-gradient(to right, #f3f4f6, #ffffff);
+    border-left: 4px solid #2563eb;
+    color: #374151;
+}
+
+.user-bubble {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border-right: 4px solid #1d4ed8;
+    margin-left: auto;
+}
+
+.blob {
+    position: absolute;
+    filter: blur(60px);
+    z-index: 1;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    background: #bfdbfe;
+    top: -50px;
+    right: -50px;
+    animation: pulse 8s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+    width: 250px;
+    height: 250px;
+    background: #ddd6fe;
+    bottom: -50px;
+    left: -20px;
+    animation: pulse 10s ease-in-out infinite alternate-reverse;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #111827;
+}
+
+.max-w-lg {
+    max-width: 600px;
+}
+
+.feature-card {
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border: 1px solid #f3f4f6 !important;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06) !important;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+}
+
+.bg-primary-light {
+    background-color: #eff6ff;
+}
+
+.bg-success-light {
+    background-color: #ecfdf5;
+}
+
+.bg-info-light {
+    background-color: #f0fdfa;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Responsive fixes */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-text-content {
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .glass-card {
+        margin: 0 auto;
+    }
+}
