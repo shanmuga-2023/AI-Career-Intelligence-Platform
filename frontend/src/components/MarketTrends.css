@@ -1,0 +1,84 @@
+/* MarketTrends.css */
+
+.market-trends-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.trend-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.trend-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.trend-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.top-skills-card::before {
+    background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+}
+
+.roles-card::before {
+    background: linear-gradient(90deg, #10B981, #34D399);
+}
+
+
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-primary-soft {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.bg-secondary-soft {
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.bg-success-soft {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.list-group-item {
+    transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa !important;
+    border-radius: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -4,7 +4,7 @@
   --text-main: #333333;
   --text-muted: #666666;
   --white: #ffffff;
-  
+
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -35,4 +35,70 @@ button {
   border: none;
   font-family: inherit;
   cursor: pointer;
+}
+
+/* AI Chat Markdown Styling */
+.react-markdown-container {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.react-markdown-container p {
+  margin-bottom: 0.8rem;
+}
+
+.react-markdown-container p:last-child {
+  margin-bottom: 0;
+}
+
+.react-markdown-container h1,
+.react-markdown-container h2,
+.react-markdown-container h3,
+.react-markdown-container h4 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.react-markdown-container ul,
+.react-markdown-container ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.react-markdown-container li {
+  margin-bottom: 0.4rem;
+}
+
+.react-markdown-container code {
+  background-color: #f1f5f9;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  color: #d926a9;
+}
+
+.react-markdown-container pre {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+}
+
+.react-markdown-container pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #334155;
+}
+
+.react-markdown-container blockquote {
+  border-left: 4px solid #cbd5e1;
+  padding-left: 1rem;
+  color: #64748b;
+  font-style: italic;
+  margin-bottom: 1rem;
 }

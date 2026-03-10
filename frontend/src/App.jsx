@@ -4,6 +4,8 @@ import ResumeUpload from './components/ResumeUpload';
 import AIChat from './components/AIChat';
 import Landing from './components/Landing';
 import Features from './components/Features';
+import MarketTrends from './components/MarketTrends';
+import CareerRoadmap from './components/CareerRoadmap';
 
 function App() {
   return (
@@ -23,6 +25,12 @@ function App() {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/features">Features</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/trends">Market Trends</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/roadmap">Career Roadmap</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/upload">Analyze Resume</Link>
@@ -45,6 +53,8 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/features" element={<Features />} />
+          <Route path="/trends" element={<MarketTrends />} />
+          <Route path="/roadmap" element={<CareerRoadmap />} />
           <Route path="/upload" element={<ResumeUpload />} />
           <Route path="/chat" element={<AIChat />} />
         </Routes>

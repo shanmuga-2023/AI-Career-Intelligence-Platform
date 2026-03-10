@@ -76,4 +76,21 @@ router.get('/assessment', (req, res) => {
     });
 });
 
+// Get Market Trends
+router.get('/market-trends', (req, res) => {
+    // Mocked data for job market trends
+    const trends = {
+        topSkills: ["Python", "React", "Machine Learning", "Cloud Computing (AWS/GCP)", "Data Analysis"],
+        trendingRoles: [
+            { role: "AI/ML Engineer", growth: "+45%", avgSalary: "$130,000" },
+            { role: "Full Stack Developer", growth: "+25%", avgSalary: "$110,000" },
+            { role: "Data Scientist", growth: "+30%", avgSalary: "$125,000" },
+            { role: "Cloud Architect", growth: "+35%", avgSalary: "$145,000" }
+        ],
+        industryInsights: "The tech industry is seeing a massive shift towards Artificial Intelligence and Cloud capabilities. Roles requiring a mix of software engineering and data science are highly sought after."
+    };
+
+    res.json({ success: true, data: trends });
+});
+
 module.exports = router;

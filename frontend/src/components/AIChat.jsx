@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { marked } from 'marked';
 
 function AIChat() {
     const [question, setQuestion] = useState('');
@@ -39,12 +40,19 @@ function AIChat() {
             <div className="card-body bg-light" style={{ overflowY: 'auto', flexGrow: 1 }}>
                 {chatLog.map((msg, i) => (
                     <div key={i} className={`mb-3 text-${msg.role === 'user' ? 'end' : 'start'}`}>
-                        <span className={`d-inline-block p-2 rounded ${msg.role === 'user' ? 'bg-primary text-white' : 'bg-white border'}`}>
-                            {msg.text}
-                        </span>
+                        <div className={`d-inline-block p-3 rounded text-start ${msg.role === 'user' ? 'bg-primary text-white' : 'bg-white border shadow-sm'}`} style={{ maxWidth: '85%' }}>
+                            {msg.role === 'ai' ? (
+                                <div
+                                    className="react-markdown-container"
+                                    dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }}
+                                />
+                            ) : (
+                                msg.text
+                            )}
+                        </div>
                     </div>
                 ))}
-                {loading && <div className="text-start mb-3"><span className="p-2 border rounded bg-white fst-italic">AI is typing...</span></div>}
+                {loading && <div className="text-start mb-3"><span className="p-3 border shadow-sm rounded bg-white fst-italic">AI is typing...</span></div>}
             </div>
 
             <div className="card-footer bg-white">
