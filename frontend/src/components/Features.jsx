@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Features.css';
+import featurePredictor from '../assets/feature_predictor.png';
+import featureMatcher from '../assets/feature_matcher.png';
+import featureParsing from '../assets/feature_parsing.png';
+import featureMentor from '../assets/feature_mentor.png';
 
 const Features = () => {
     return (
@@ -24,7 +28,7 @@ const Features = () => {
                     <div className="col-lg-6">
                         <div className="detailed-feature-card h-100">
                             <div className="feature-image-wrapper">
-                                <i className="bi bi-graph-up-arrow"></i>
+                                <img src={featurePredictor} alt="AI Employability Predictor" />
                             </div>
                             <div className="feature-content">
                                 <span className="feature-badge">Prediction Engine</span>
@@ -45,7 +49,7 @@ const Features = () => {
                     <div className="col-lg-6">
                         <div className="detailed-feature-card h-100">
                             <div className="feature-image-wrapper">
-                                <i className="bi bi-diagram-3"></i>
+                                <img src={featureMatcher} alt="Smart Skill Matcher" />
                             </div>
                             <div className="feature-content">
                                 <span className="feature-badge">Matching System</span>
@@ -66,7 +70,7 @@ const Features = () => {
                     <div className="col-lg-6">
                         <div className="detailed-feature-card h-100">
                             <div className="feature-image-wrapper">
-                                <i className="bi bi-file-earmark-pdf"></i>
+                                <img src={featureParsing} alt="Intelligent Resume Parsing" />
                             </div>
                             <div className="feature-content">
                                 <span className="feature-badge">Resume Analysis</span>
@@ -87,7 +91,7 @@ const Features = () => {
                     <div className="col-lg-6">
                         <div className="detailed-feature-card h-100">
                             <div className="feature-image-wrapper">
-                                <i className="bi bi-robot"></i>
+                                <img src={featureMentor} alt="Interactive AI Mentor" />
                             </div>
                             <div className="feature-content">
                                 <span className="feature-badge">24/7 Assistant</span>

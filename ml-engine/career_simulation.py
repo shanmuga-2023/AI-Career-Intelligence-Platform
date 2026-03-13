@@ -1,6 +1,7 @@
 # Rule-based Career Simulation Model
 import pandas as pd
 import os
+from difflib import get_close_matches
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 csv_path = os.path.join(current_dir, 'jobs.csv')
@@ -11,9 +12,13 @@ try:
     for index, row in df.iterrows():
         title = str(row['job_title']).lower().strip()
         skills = [s.strip() for s in str(row['skills']).split(',')]
+        # allow CSV to optionally contain an expected_salary column
+        salary = None
+        if 'expected_salary' in row and pd.notna(row['expected_salary']):
+            salary = str(row['expected_salary'])
         JOB_REQUIREMENTS[title] = {
             "required_skills": skills,
-            "expected_salary": "$80,000 - $120,000" # Static placeholder since it's not in CSV
+            "expected_salary": salary or "$80,000 - $120,000"
         }
 except Exception as e:
     # Fallback mocked job requirements
@@ -33,12 +38,15 @@ except Exception as e:
     }
 
 def simulate_career_path(user_skills: list[str], target_job: str) -> dict:
-    target = target_job.lower()
+    target = target_job.lower().strip()
     
     if target not in JOB_REQUIREMENTS:
-        return {
-            "error": "Job role not found in knowledge base."
-        }
+        # return suggestions for close matches to improve UX
+        close = get_close_matches(target, JOB_REQUIREMENTS.keys(), n=3, cutoff=0.6)
+        error_obj = {"error": "Job role not found in knowledge base."}
+        if close:
+            error_obj["suggestions"] = close
+        return error_obj
         
     job_info = JOB_REQUIREMENTS[target]
     required_skills = set(job_info["required_skills"])
