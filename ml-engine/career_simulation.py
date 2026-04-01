@@ -54,7 +54,7 @@ try:
 
     for index, row in df.iterrows():
         title = str(row['career_name']).lower().strip()
-        skills = [s.strip() for s in str(row['required_skills']).split(',')] if pd.notna(row['required_skills']) else []
+        skills = [s.strip() for s in str(row['top_tools_technologies']).split(',')] if pd.notna(row['top_tools_technologies']) else []
         
         # Format salary
         salary = "Not Available"

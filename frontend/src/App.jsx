@@ -3,7 +3,6 @@ import Dashboard from './components/Dashboard';
 import ResumeUpload from './components/ResumeUpload';
 import AIChat from './components/AIChat';
 import Landing from './components/Landing';
-import Features from './components/Features';
 import MarketTrends from './components/MarketTrends';
 import CareerRoadmap from './components/CareerRoadmap';
 import CareerCompass from './components/CareerCompass';
@@ -12,37 +11,31 @@ function App() {
   return (
     <Router>
       {/* Full Width Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-custom w-100 px-4">
-        <Link className="navbar-brand fw-bold text-white mb-0 h1" to="/">
+      <nav className="navbar navbar-custom w-100 px-3 px-md-4 d-flex align-items-center flex-nowrap" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <Link className="navbar-brand fw-bold mb-0 h1 flex-shrink-0 me-4" to="/">
           CareerAI
         </Link>
-        <div className="collapse navbar-collapse d-flex justify-content-end">
-          <ul className="navbar-nav mb-2 mb-lg-0 align-items-center">
+        <div className="d-flex align-items-center pb-1">
+          <ul className="navbar-nav flex-row align-items-center m-0 p-0 gap-2 gap-md-3 flex-nowrap">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="btn-nav-assessment" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">Career Assessment</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/features">Features</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/trends">Market Trends</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/roadmap">Career Roadmap</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/upload">Analyze Resume</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/chat">AI Assistant</Link>
-            </li>
-            <li className="nav-item ms-3">
-              <Link className="btn btn-nav-assessment" to="/assessment">
+              <Link className="btn-nav-assessment" to="/assessment">
                 Start Assessment
               </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/trends">Market Trends</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/roadmap">Career Roadmap</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/upload">Analyze Resume</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/chat">AI Assistant</Link>
             </li>
           </ul>
         </div>
@@ -53,8 +46,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/assessment" element={<CareerCompass />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/features" element={<Features />} />
+
           <Route path="/trends" element={<MarketTrends />} />
           <Route path="/roadmap" element={<CareerRoadmap />} />
           <Route path="/upload" element={<ResumeUpload />} />

@@ -4,21 +4,7 @@ import axios from 'axios';
 import './CareerCompass.css';
 
 const SKILLS_LIST = [
-    "Maya", "Blender", "Cinema 4D", "3ds Max", "After Effects", "Houdini", "ZBrush", "Substance Painter", "Marmoset Toolbag", "Unreal Engine",
-    "Unity", "Substance Designer", "Rhino", "KeyShot", "TensorFlow", "PyTorch", "Kubernetes", "Docker", "AWS SageMaker", "Hugging Face",
-    "IBM AI Fairness 360", "SHAP", "LIME", "Fairlearn", "Aequitas", "OpenAI API", "LangChain", "Jira", "Figma", "Python",
-    "REST APIs", "JAX", "CUDA", "Weights & Biases", "AWS", "Azure AI", "GCP Vertex AI", "Terraform", "NVIDIA Jetson", "TensorRT",
-    "OpenVINO", "ONNX", "C++", "dbt", "BigQuery", "Snowflake", "Looker", "Airflow", "Node.js", "FastAPI",
-    "Postman", "Swagger", "Express", "Django REST", "ARKit", "ARCore", "Vuforia", "Spark AR", "Lens Studio", "OpenAI Gym",
-    "Prolog", "ROS2", "Gazebo", "MATLAB", "OpenCV", "CARLA", "Apollo", "NVIDIA DRIVE", "Django", "Spring Boot",
-    "PostgreSQL", "Redis", "Apache Spark", "Hadoop", "Kafka", "Hive", "Databricks", "AWS EMR", "Solidity", "Ethereum",
-    "Hardhat", "Truffle", "IPFS", "Web3.js", "ethers.js", "MythX", "Slither", "Echidna", "Manticore", "CloudFormation",
-    "Ansible", "AWS EC2", "VPC", "VMware", "OpenStack", "AWS Transit Gateway", "Azure Virtual WAN", "Cisco Meraki", "Palo Alto", "Helm",
-    "Backstage", "ArgoCD", "GitHub Actions", "AWS GuardDuty", "Azure Defender", "Prisma Cloud", "CrowdStrike", "IBM Watson", "NLTK", "SpaCy",
-    "Neo4j", "YOLO", "Detectron2", "Rasa", "Dialogflow", "Botpress", "Twilio", "Splunk", "Wireshark", "Nessus",
-    "IBM QRadar", "Erwin", "AWS Glue", "Apache Atlas", "scikit-learn", "R", "KNIME", "Weka", "SQL", "Tableau",
-    "Jupyter", "The Graph"
-
+    "Python", "C", "C++", "C#", "Java", "Terraform", "Kubernetes", "TensorFlow", "Docker", "Unity", "PyTorch", "Maya", "AWS", "Unreal Engine", "Figma", "Wireshark", "React", "Blender", "CUDA", "Hardhat", "CrowdStrike", "Splunk", "Qiskit", "Houdini", "REST APIs", "Node.js", "ROS2", "Gazebo", "MATLAB", "OpenCV", "Solidity", "Ansible", "Palo Alto", "Vulkan", "Unreal", "Cirq", "PennyLane", "Substance Painter", "LangChain", "JAX", "dbt", "BigQuery", "Snowflake", "Postman", "IPFS", "ethers.js", "Azure", "GCP", "GitHub Actions", "Nessus", "Jenkins", "Prometheus", "OpenGL", "HLSL", "RenderDoc", "OpenXR", "WebXR", "QuTiP", "3ds Max", "ZBrush", "AWS SageMaker", "Hugging Face", "SHAP", "OpenAI API", "Weights & Biases", "TensorRT", "ONNX", "Airflow", "ARKit", "ARCore", "OpenAI Gym", "PostgreSQL", "Apache Spark", "Kafka", "Web3.js", "VMware", "Helm", "Backstage", "ArgoCD", "NLTK", "SpaCy", "IBM QRadar", "SQL", "Tableau", "scikit-learn", "The Graph", "MQTT", "STM32", "Arduino", "TypeScript", "Tailwind CSS", "DirectX", "GLSL", "Metal", "SteamVR", "HoloLens SDK", "Nagios", "Linux", "Maze", "Hotjar", "JIRA", "IBM Quantum", "LabVIEW", "MoveIt", "AWS Security Hub", "Grafana", "PagerDuty", "AWS/Azure/GCP", "Git", "Selenium", "pytest", "Storybook", "Cinema 4D", "After Effects", "Marmoset Toolbag", "Substance Designer", "Rhino", "KeyShot", "IBM AI Fairness 360", "LIME", "Fairlearn", "Aequitas", "Jira", "HuggingFace", "Azure AI", "GCP Vertex AI", "NVIDIA Jetson", "OpenVINO", "Looker", "FastAPI", "Swagger", "Express", "Django REST", "Vuforia", "Spark AR", "Lens Studio", "Custom simulators", "Prolog", "CARLA", "Apollo", "NVIDIA DRIVE", "Django", "Spring Boot", "Redis", "Hadoop", "Hive", "Databricks", "AWS EMR", "Ethereum", "Truffle", "MythX", "Slither", "Echidna", "Manticore", "CloudFormation", "AWS EC2", "VPC", "OpenStack", "AWS Transit Gateway", "Azure Virtual WAN", "Cisco Meraki", "AWS GuardDuty", "Azure Defender", "Prisma Cloud", "IBM Watson", "Neo4j", "YOLO", "Detectron2", "Rasa", "Dialogflow", "Botpress", "Twilio", "Erwin", "AWS Glue", "Apache Atlas", "Python (scikit-learn)", "R", "KNIME", "Weka", "Jupyter", "Autopsy", "FTK", "Volatility", "EnCase", "SIFT", "Apache Kafka", "ZooKeeper", "etcd", "gRPC", "Cassandra", "AWS Greengrass", "Azure IoT Edge", "K3s", "FreeRTOS", "Keil", "JTAG", "Oscilloscope", "Vue.js", "Webpack", "MongoDB", "FMOD", "LLVM", "Custom engines", "Unity (C# internals)", "DirectX 12", "MPI", "OpenMP", "SLURM", "Intel MKL", "HPC clusters", "User testing tools", "Qualys", "ROS", "Simulink", "Adobe XD", "InVision", "Raspberry Pi", "AWS IoT Core", "Node-RED", "MLflow", "Kubeflow", "IDA Pro", "Ghidra", "Cuckoo Sandbox", "YARA", "OllyDbg", "Decentraland SDK", "Roblox Studio", "Flutter", "React Native", "Swift", "Kotlin", "Xcode", "Android Studio", "BERT", "Cisco IOS", "Juniper", "SolarWinds", "Cisco ASA", "Snort", "Suricata", "Zeek", "Linux kernel", "GDB", "Valgrind", "QEMU", "Rust", "Assembly", "Kali Linux", "Metasploit", "Burp Suite", "Nmap", "Cobalt Strike", "Selenium (basic)", "TestRail", "BrowserStack", "NIST PQC algorithms", "OpenSSL PQC", "Qiskit ML", "TensorFlow Quantum", "Q#", "custom cryogenic control systems", "Stable Baselines3", "RLlib", "Unity ML-Agents", "NVIDIA RTX", "NVIDIA Isaac", "URDF", "FPGA tools", "Unity Shader Graph", "Unreal Material Editor", "MATLAB Simulink", "PhysX", "Foundry", "OpenZeppelin", "Etherscan", "Event-driven architecture tools", "UML", "IntelliJ", "VS Code", "Python/Java/C++", "CI/CD", "JUnit", "Chaos Monkey", "Active Directory", "Bash", "PowerShell", "Enterprise service buses", "TOGAF tools", "Playwright", "Cypress", "Appium", "Recorded Future", "ThreatConnect", "MISP", "MITRE ATT&CK", "Framer", "Nuke", "Arnold", "RenderMan", "Meta Quest SDK", "WordPress", "MySQL", "PHP", "Bootstrap", "Zscaler", "Palo Alto Prisma", "Okta", "BeyondTrust"
 ];
 
 const INTEREST_LIST = [
@@ -36,6 +22,7 @@ const INTEREST_LIST = [
 function CareerCompass() {
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [selectedInterests, setSelectedInterests] = useState([]);
+    const [showAllSkills, setShowAllSkills] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -90,8 +77,8 @@ function CareerCompass() {
     return (
         <div className="compass-container">
             <div className="compass-header">
-                <h1 className="compass-title display-5">CareerCompass</h1>
-                <p className="compass-subtitle">
+                <h1 className="compass-title display-5 fw-bold">Career Assessment</h1>
+                <p className="compass-subtitle text-center mx-auto mt-3">
                     Discover the right career path based on your skills and interests. Select the technologies you are familiar with and get personalized recommendations.
                 </p>
             </div>
@@ -104,8 +91,8 @@ function CareerCompass() {
                     <div className="col-md-9 mb-4 pr-lg-5">
                         <div className="mb-5">
                             <h4 className="fw-bold mb-4" style={{ color: '#1a1a1a' }}>Select Your Skills</h4>
-                            <div className="d-flex flex-wrap gap-3">
-                                {SKILLS_LIST.map((skill, index) => {
+                            <div className="d-flex flex-wrap gap-2">
+                                {(showAllSkills ? SKILLS_LIST : SKILLS_LIST.slice(0, Math.ceil(SKILLS_LIST.length / 4))).map((skill, index) => {
                                     const isSelected = selectedSkills.includes(skill);
                                     return (
                                         <button
@@ -118,6 +105,16 @@ function CareerCompass() {
                                     );
                                 })}
                             </div>
+                            {SKILLS_LIST.length > Math.ceil(SKILLS_LIST.length / 4) && (
+                                <div className="mt-3 text-start">
+                                    <button 
+                                        className="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" 
+                                        onClick={() => setShowAllSkills(!showAllSkills)}
+                                    >
+                                        {showAllSkills ? 'Show Less' : `Show ${SKILLS_LIST.length - Math.ceil(SKILLS_LIST.length / 4)} More`} <i className={`bi bi-chevron-${showAllSkills ? 'up' : 'down'} ms-1`}></i>
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         <div>
@@ -130,7 +127,6 @@ function CareerCompass() {
                                             key={`interest-${index}`}
                                             className={`skill-pill ${isSelected ? 'selected' : ''}`}
                                             onClick={() => toggleInterest(interest)}
-                                            style={{ backgroundColor: isSelected ? '#10b981' : '#ffffff', color: isSelected ? '#ffffff' : '#495057' }}
                                         >
                                             {interest}
                                         </button>
@@ -166,7 +162,7 @@ function CareerCompass() {
                                             <span className="text-muted small fw-bold text-uppercase d-block mb-2">Interests</span>
                                             <div className="d-flex flex-wrap gap-2">
                                                 {selectedInterests.map((interest, index) => (
-                                                    <span key={`i-${index}`} className="selected-badge border-0" style={{ backgroundColor: '#10b981', color: 'white' }}>
+                                                    <span key={`i-${index}`} className="selected-badge border-0" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: 'white' }}>
                                                         {interest}
                                                     </span>
                                                 ))}
