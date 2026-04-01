@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.translator-wrapper {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  min-height: 80vh;
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  margin: 1rem 0;
+}
+
+/* Glowing orbs for true glassmorphism effect */
+.translator-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 60%);
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.translator-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  right: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 60%);
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.translator-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+.translator-wrapper .title {
+  font-weight: 800;
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  margin-bottom: 3rem !important;
+  font-size: 2.5rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem !important;
+}
+
+.glass-card h4 {
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 1.5rem !important;
+}
+
+.glass-card .text-muted {
+  color: #cbd5e1 !important;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.glass-input {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.glass-input::placeholder {
+  color: #64748b;
+}
+
+.translator-btn {
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+  border: none;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.85rem;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  font-size: 1.05rem;
+  margin-top: 1rem;
+}
+
+.translator-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+}
+
+.translator-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.tabs-container {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem !important;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.tab-btn:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tab-btn.active {
+  color: #ffffff;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.15);
+}
+
+.result-container {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #f8fafc;
+  padding: 1.5rem !important;
+  margin-top: 0.5rem;
+  min-height: 250px;
+}
+
+.result-text p {
+  margin: 0;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 0.6rem 1.25rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}

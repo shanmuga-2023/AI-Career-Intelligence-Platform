@@ -128,7 +128,7 @@ function CareerRoadmap() {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {roadmap.job_description && roadmap.job_description !== "N/A" && (
                                 <div className="row g-4 mb-4">
                                     <div className="col-12">
@@ -141,17 +141,17 @@ function CareerRoadmap() {
                                     </div>
                                 </div>
                             )}
-                            
+
                             {roadmap.openings_plot_base64 && (
                                 <div className="row g-4 mb-4">
                                     <div className="col-12">
                                         <div className="card shadow-sm border-0 rounded-4 highlight-card bg-white">
                                             <div className="card-body p-3 text-center">
-                                                <img 
-                                                    src={roadmap.openings_plot_base64} 
-                                                    alt="Market Demand Trend for Next 3 Years" 
-                                                    className="img-fluid rounded pointer-events-none" 
-                                                    style={{ maxHeight: '450px', width: '100%', objectFit: 'contain' }} 
+                                                <img
+                                                    src={roadmap.openings_plot_base64}
+                                                    alt="Market Demand Trend for Next 3 Years"
+                                                    className="img-fluid rounded pointer-events-none"
+                                                    style={{ maxHeight: '450px', width: '100%', objectFit: 'contain' }}
                                                 />
                                             </div>
                                         </div>
@@ -164,7 +164,7 @@ function CareerRoadmap() {
                                     <div className="col-md-4">
                                         <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
                                             <div className="card-body p-3 text-center">
-                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>Domain</h6>
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{ fontSize: "0.8rem" }}>Domain</h6>
                                                 <h5 className="fw-bold text-dark mb-0">{roadmap.domain}</h5>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@ function CareerRoadmap() {
                                     <div className="col-md-4">
                                         <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
                                             <div className="card-body p-3 text-center">
-                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>Difficulty</h6>
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{ fontSize: "0.8rem" }}>Difficulty</h6>
                                                 <h5 className="fw-bold text-warning mb-0">{roadmap.difficulty_level}</h5>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@ function CareerRoadmap() {
                                     <div className="col-md-4">
                                         <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
                                             <div className="card-body p-3 text-center">
-                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>AI Automation Risk</h6>
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{ fontSize: "0.8rem" }}>AI Automation Risk</h6>
                                                 <h5 className="fw-bold text-danger mb-0">{roadmap.ai_automation_risk}</h5>
                                             </div>
                                         </div>
@@ -191,20 +191,20 @@ function CareerRoadmap() {
                             {roadmap.pros && roadmap.pros.length > 0 && (
                                 <div className="row g-4 mb-4">
                                     <div className="col-md-6">
-                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{borderTop: "4px solid #198754 !important"}}>
+                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{ borderTop: "4px solid #198754 !important" }}>
                                             <div className="card-body p-4">
                                                 <h5 className="text-success fw-bold mb-3"><i className="bi bi-hand-thumbs-up-fill me-2"></i> Pros</h5>
-                                                <ul className="mb-0 text-muted" style={{paddingLeft: "1.2rem"}}>
+                                                <ul className="mb-0 text-muted" style={{ paddingLeft: "1.2rem" }}>
                                                     {roadmap.pros.map((p, i) => <li key={i}>{p}</li>)}
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{borderTop: "4px solid #dc3545 !important"}}>
+                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{ borderTop: "4px solid #dc3545 !important" }}>
                                             <div className="card-body p-4">
                                                 <h5 className="text-danger fw-bold mb-3"><i className="bi bi-hand-thumbs-down-fill me-2"></i> Cons</h5>
-                                                <ul className="mb-0 text-muted" style={{paddingLeft: "1.2rem"}}>
+                                                <ul className="mb-0 text-muted" style={{ paddingLeft: "1.2rem" }}>
                                                     {roadmap.cons.map((c, i) => <li key={i}>{c}</li>)}
                                                 </ul>
                                             </div>
@@ -241,7 +241,16 @@ function CareerRoadmap() {
                                             {roadmap.missing_skills.length > 0 ? (
                                                 <div className="d-flex flex-wrap gap-2">
                                                     {roadmap.missing_skills.map((skill, index) => (
-                                                        <span key={index} className="badge bg-danger-soft text-danger px-3 py-2 rounded-pill border border-danger border-opacity-25">{skill}</span>
+                                                        <a
+                                                            key={index}
+                                                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(skill + ' tutorial')}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="badge bg-danger-soft text-danger px-3 py-2 rounded-pill border border-danger border-opacity-25 text-decoration-none hover-shadow transition-all d-flex align-items-center gap-1"
+                                                            title={`Find ${skill} tutorials on YouTube`}
+                                                        >
+                                                            {skill} <i className="bi bi-youtube ms-1"></i>
+                                                        </a>
                                                     ))}
                                                 </div>
                                             ) : (
@@ -263,8 +272,17 @@ function CareerRoadmap() {
                                                 <div className="timeline-marker bg-primary text-white d-flex align-items-center justify-content-center fw-bold shadow-sm">
                                                     {index + 1}
                                                 </div>
-                                                <div className="timeline-content bg-white p-4 rounded-4 shadow-sm border-0">
+                                                <div className="timeline-content bg-white p-4 rounded-4 shadow-sm border-0 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
                                                     <p className="mb-0 fw-medium text-dark fs-5">{step}</p>
+                                                    <a
+                                                        href={`https://www.youtube.com/results?search_query=${encodeURIComponent(step + " tutorial course")}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="btn btn-outline-danger btn-sm rounded-pill px-3 d-flex align-items-center gap-2 align-self-start align-self-sm-auto"
+                                                    >
+                                                        <i className="bi bi-youtube fs-5"></i>
+                                                        <span>Watch Tutorials</span>
+                                                    </a>
                                                 </div>
                                             </div>
                                         ))}

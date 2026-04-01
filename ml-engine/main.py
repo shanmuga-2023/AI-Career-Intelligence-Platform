@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 
+from project_translator import get_ai_translation
 from skill_matching import calculate_skill_match
 from employability_model import predict_employability
 from career_simulation import simulate_career_path, recommend_jobs
@@ -33,6 +34,11 @@ class CareerSimRequest(BaseModel):
     user_skills: List[str]
     target_job: str
 
+class ProjectTranslateRequest(BaseModel):
+    name: str
+    stack: str
+    desc: str
+
 @app.get("/")
 def read_root():
     return {"message": "AI Career Intelligence ML Engine Running"}
@@ -55,4 +61,9 @@ def simulate(req: CareerSimRequest):
 @app.post("/recommend-jobs")
 def recommend_endpoint(req: RecommendRequest):
     result = recommend_jobs(req.user_skills, req.user_interests)
+    return {"success": True, "data": result}
+
+@app.post("/translate-project")
+async def translate_project(req: ProjectTranslateRequest):
+    result = get_ai_translation(req.name, req.desc, req.stack)
     return {"success": True, "data": result}

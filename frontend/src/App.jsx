@@ -6,6 +6,7 @@ import Landing from './components/Landing';
 import MarketTrends from './components/MarketTrends';
 import CareerRoadmap from './components/CareerRoadmap';
 import CareerCompass from './components/CareerCompass';
+import ProjectTranslator from './components/ProjectTranslator';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
             <li className="nav-item">
               <Link className="btn-nav-assessment" to="/chat">AI Assistant</Link>
             </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/translator">Project Translator</Link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -51,6 +55,7 @@ function App() {
           <Route path="/roadmap" element={<CareerRoadmap />} />
           <Route path="/upload" element={<ResumeUpload />} />
           <Route path="/chat" element={<AIChat />} />
+          <Route path="/translator" element={<ProjectTranslator />} />
         </Routes>
       </div>
     </Router>
