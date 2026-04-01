@@ -1,17 +1,54 @@
-# Rule-based Career Simulation Model
 import pandas as pd
 import os
 from difflib import get_close_matches
+import base64
+import io
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # Loading the new enriched CSV data
 csv_path = os.path.join(current_dir, 'career_enriched_fixed (3).csv')
+interest_path = os.path.join(current_dir, 'interest.csv')
+career_interest_path = os.path.join(current_dir, 'career_interest.csv')
+
+INTEREST_MAP = {}
+try:
+    int_df = pd.read_csv(interest_path)
+    for _, row in int_df.iterrows():
+        INTEREST_MAP[int(row['interest_id'])] = str(row['interest']).strip()
+except Exception:
+    pass
+
+CAREER_INTERESTS = {}
+try:
+    ci_df = pd.read_csv(career_interest_path)
+    for _, row in ci_df.iterrows():
+        c_id = int(row['career_id'])
+        i_id = int(row['interest_id'])
+        if c_id not in CAREER_INTERESTS:
+            CAREER_INTERESTS[c_id] = []
+        if i_id in INTEREST_MAP:
+            CAREER_INTERESTS[c_id].append(INTEREST_MAP[i_id])
+except Exception:
+    pass
 
 JOB_REQUIREMENTS = {}
 try:
-    df = pd.read_csv(csv_path, encoding='cp1252')
-    # The new CSV might have duplicate career_name if it has multiple years
+    df = pd.read_csv(csv_path, encoding='utf-8')
+    historical_data = {}
     if 'year' in df.columns:
+        for index, row in df.iterrows():
+            title = str(row['career_name']).lower().strip()
+            if title not in historical_data:
+                historical_data[title] = []
+            if pd.notna(row['year']) and pd.notna(row['openings']):
+                try:
+                    historical_data[title].append({'year': int(row['year']), 'openings': int(row['openings'])})
+                except ValueError:
+                    pass
         df = df.sort_values(by='year', ascending=False)
         df = df.drop_duplicates(subset=['career_name'], keep='first')
 
@@ -25,22 +62,28 @@ try:
             try:
                 low = int(float(row['lowest_salary']))
                 high = int(float(row['highest_salary']))
-                salary = f"₹{low:,} - ₹{high:,}"
+                salary = f"INR {low:,} - {high:,}"
             except ValueError:
-                salary = f"{row['lowest_salary']} - {row['highest_salary']}"
+                salary = f"INR {row['lowest_salary']} - {row['highest_salary']}"
         elif 'avg_salary_inr' in row and pd.notna(row['avg_salary_inr']):
-            salary_str = str(row['avg_salary_inr'])
-            salary = salary_str if salary_str.startswith('₹') else f"₹{salary_str}"
+            salary_str = str(row['avg_salary_inr']).replace('₹', '').replace('â€“', '-').replace('–', '-').strip()
+            salary = f"INR {salary_str}"
+            
+        c_id = int(row['career_id']) if 'career_id' in row and pd.notna(row['career_id']) else -1
+        interests = CAREER_INTERESTS.get(c_id, [])
             
         JOB_REQUIREMENTS[title] = {
             "required_skills": skills,
+            "required_interests": interests,
             "expected_salary": salary,
             "domain": str(row['domain']) if pd.notna(row['domain']) else "N/A",
             "difficulty_level": str(row['difficulty_level']) if pd.notna(row['difficulty_level']) else "N/A",
             "ai_automation_risk": str(row['ai_automation_risk']) + "%" if pd.notna(row['ai_automation_risk']) else "N/A",
             "pros": [p.strip() for p in str(row['pros']).split(',')] if pd.notna(row['pros']) else [],
             "cons": [c.strip() for c in str(row['cons']).split(',')] if pd.notna(row['cons']) else [],
-            "top_tools": [t.strip() for t in str(row['top_tools_technologies']).split(',')] if pd.notna(row['top_tools_technologies']) else []
+            "top_tools": [t.strip() for t in str(row['top_tools_technologies']).split(',')] if pd.notna(row['top_tools_technologies']) else [],
+            "job_description": str(row['job_description']).strip() if 'job_description' in row and pd.notna(row['job_description']) else "N/A",
+            "historical_openings": historical_data.get(title, [])
         }
 except Exception as e:
     print(f"Error loading CSV: {e}")
@@ -78,6 +121,61 @@ except Exception as e:
         }
     }
 
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+def generate_openings_plot(historical_data, target_job):
+    if not historical_data or len(historical_data) < 2:
+        return None
+        
+    historical_data.sort(key=lambda x: x['year'])
+    years = [d['year'] for d in historical_data]
+    openings = [d['openings'] for d in historical_data]
+    
+    X = np.array(years)
+    y = np.array(openings)
+    
+    try:
+        z = np.polyfit(X, y, 1)
+        p = np.poly1d(z)
+        
+        last_year = years[-1]
+        pred_years = [last_year + 1, last_year + 2, last_year + 3]
+        pred_openings = p(pred_years)
+        
+        # Ensure no negative predictions
+        pred_openings = np.maximum(pred_openings, 0)
+        
+        fig = Figure(figsize=(10, 5))
+        canvas = FigureCanvas(fig)
+        ax = fig.add_subplot(111)
+        
+        ax.plot(years, openings, marker='o', label='Historical', color='#0d6efd', linewidth=2)
+        ax.plot(pred_years, pred_openings, marker='X', linestyle='--', label='Projected (3 Yrs)', color='#198754', linewidth=2)
+        
+        all_years = years + pred_years
+        
+        ax.set_title(f"Market Demand Trend: {target_job.title()}", fontsize=14, pad=15)
+        ax.set_xlabel("Year", fontsize=11)
+        ax.set_ylabel("Number of Openings", fontsize=11)
+        ax.set_xticks(all_years)
+        
+        ax.get_yaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, pos: format(int(x), ',')))
+        
+        ax.grid(True, linestyle='--', alpha=0.7)
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+        fig.tight_layout()
+        
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', dpi=100)
+        buf.seek(0)
+        img_base64 = base64.b64encode(buf.read()).decode('utf-8')
+        
+        return f"data:image/png;base64,{img_base64}"
+    except Exception as e:
+        print(f"Error generating plot: {e}")
+        return None
+
 def simulate_career_path(user_skills: list[str], target_job: str) -> dict:
     target = target_job.lower().strip()
     
@@ -100,57 +198,76 @@ def simulate_career_path(user_skills: list[str], target_job: str) -> dict:
         else:
             missing_skills.append(req_skill)
     
-    learning_path = []
-    if missing_skills:
-        learning_path.append(f"1. Start with core principles of {missing_skills[0].title()}")
-        if len(missing_skills) > 1:
-            learning_path.append(f"2. Take an online course on {missing_skills[1].title()}")
-        learning_path.append(f"{len(missing_skills)+1}. Build a project combining the new skills you've learned.")
-    else:
-        learning_path = ["You already have the required skills! Start applying or build a portfolio project."]
-        
+    job_skills = job_info["required_skills"]
+    plot_base64 = generate_openings_plot(job_info.get("historical_openings", []), target_job.title())
+    
+    user_skills_set = set([s.lower().strip() for s in user_skills])
+    job_skills_set = set([s.lower().strip() for s in job_skills])
+    
+    present_skills = list(user_skills_set.intersection(job_skills_set))
+    missing_skills = list(job_skills_set.difference(user_skills_set))
+    
     return {
         "target_job": target_job.title(),
+        "job_description": job_info.get("job_description", "N/A"),
+        "openings_plot_base64": plot_base64,
         "required_skills": job_info["required_skills"],
         "present_skills": present_skills,
         "missing_skills": missing_skills,
         "expected_salary": job_info["expected_salary"],
-        "learning_path": learning_path,
-        "domain": job_info.get("domain", "N/A"),
-        "difficulty_level": job_info.get("difficulty_level", "N/A"),
-        "ai_automation_risk": job_info.get("ai_automation_risk", "N/A"),
-        "pros": job_info.get("pros", []),
-        "cons": job_info.get("cons", []),
-        "top_tools": job_info.get("top_tools", [])
+        "domain": job_info["domain"],
+        "difficulty_level": job_info["difficulty_level"],
+        "ai_automation_risk": job_info["ai_automation_risk"],
+        "pros": job_info["pros"],
+        "cons": job_info["cons"],
+        "learning_path": [
+            f"Master {m}" for m in missing_skills[:3]
+        ] + ["Build a portfolio project", "Start applying for junior roles"]
     }
 
-def recommend_jobs(user_skills: list[str], top_n: int = 3) -> list[dict]:
+def recommend_jobs(user_skills: list[str], user_interests: list[str] = [], top_n: int = 3) -> list[dict]:
     user_skills_set = set([s.lower().strip() for s in user_skills])
+    user_interests_set = set([i.lower().strip() for i in (user_interests or [])])
     recommendations = []
     
     for title, info in JOB_REQUIREMENTS.items():
         job_skills_set = set([s.lower().strip() for s in info.get("required_skills", [])])
-        total_required = len(job_skills_set)
+        job_interests_set = set([i.lower().strip() for i in info.get("required_interests", [])])
         
-        if total_required == 0:
+        total_required_skills = len(job_skills_set)
+        total_required_interests = len(job_interests_set)
+        
+        if total_required_skills == 0 and total_required_interests == 0:
             continue
             
         matching_skills = user_skills_set.intersection(job_skills_set)
-        match_percentage = (len(matching_skills) / total_required) * 100
+        matching_interests = user_interests_set.intersection(job_interests_set)
         
-        if match_percentage > 0 or len(user_skills_set) == 0: 
+        skill_score = (len(matching_skills) / total_required_skills) * 100 if total_required_skills > 0 else 0
+        interest_score = (len(matching_interests) / total_required_interests) * 100 if total_required_interests > 0 else 0
+        
+        if len(user_skills_set) == 0 and len(user_interests_set) == 0:
+            match_percentage = 0.0
+        elif len(user_skills_set) == 0:
+            match_percentage = interest_score
+        elif len(user_interests_set) == 0:
+            match_percentage = skill_score
+        else:
+            match_percentage = (skill_score * 0.7) + (interest_score * 0.3)
+        
+        if match_percentage > 0 or (len(user_skills_set) == 0 and len(user_interests_set) == 0): 
             recommendations.append({
                 "target_job": title.title(),
                 "match_percentage": float(f"{match_percentage:.1f}"),
                 "expected_salary": info.get("expected_salary", "N/A"),
                 "domain": info.get("domain", "N/A"),
-                "missing_skills_count": total_required - len(matching_skills)
+                "missing_skills_count": total_required_skills - len(matching_skills)
             })
             
     # Sort by highest match percentage first, then by fewest missing skills
     recommendations.sort(key=lambda x: (x["match_percentage"], -x["missing_skills_count"]), reverse=True)
     
-    if not recommendations or recommendations[0]["match_percentage"] == 0:
-        return [recommendations[i] for i in range(min(top_n, len(recommendations)))]
+    if len(recommendations) == 0:
+        return []
         
     return [recommendations[i] for i in range(min(top_n, len(recommendations)))]

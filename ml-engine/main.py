@@ -22,6 +22,7 @@ class SkillMatchRequest(BaseModel):
 
 class RecommendRequest(BaseModel):
     user_skills: List[str]
+    user_interests: Optional[List[str]] = []
 
 class EmployabilityRequest(BaseModel):
     num_skills: int
@@ -53,5 +54,5 @@ def simulate(req: CareerSimRequest):
 
 @app.post("/recommend-jobs")
 def recommend_endpoint(req: RecommendRequest):
-    result = recommend_jobs(req.user_skills)
+    result = recommend_jobs(req.user_skills, req.user_interests)
     return {"success": True, "data": result}

@@ -13,8 +13,8 @@ function CareerRoadmap() {
 
     // Auto-fetch if navigating from CareerCompass
     useEffect(() => {
-        if (location.state?.userSkills && location.state?.targetJob) {
-            generateRoadmap(location.state.userSkills, location.state.targetJob);
+        if (location.state && location.state.targetJob) {
+            generateRoadmap(location.state.userSkills || '', location.state.targetJob);
         }
     }, [location.state]);
 
@@ -46,7 +46,7 @@ function CareerRoadmap() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!userSkills.trim() || !targetJob.trim()) return;
+        if (!targetJob.trim()) return;
         generateRoadmap(userSkills, targetJob);
     };
 
@@ -74,7 +74,6 @@ function CareerRoadmap() {
                                             placeholder="e.g. Python, SQL, React"
                                             value={userSkills}
                                             onChange={(e) => setUserSkills(e.target.value)}
-                                            required
                                         />
                                     </div>
                                     <div className="col-md-6">
@@ -130,6 +129,36 @@ function CareerRoadmap() {
                                 </div>
                             </div>
                             
+                            {roadmap.job_description && roadmap.job_description !== "N/A" && (
+                                <div className="row g-4 mb-4">
+                                    <div className="col-12">
+                                        <div className="card shadow-sm border-0 rounded-4" style={{ borderLeft: '4px solid #0dcaf0' }}>
+                                            <div className="card-body p-4">
+                                                <h5 className="fw-bold mb-2 text-info"><i className="bi bi-info-circle-fill me-2"></i>Job Definition</h5>
+                                                <p className="text-muted mb-0">{roadmap.job_description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {roadmap.openings_plot_base64 && (
+                                <div className="row g-4 mb-4">
+                                    <div className="col-12">
+                                        <div className="card shadow-sm border-0 rounded-4 highlight-card bg-white">
+                                            <div className="card-body p-3 text-center">
+                                                <img 
+                                                    src={roadmap.openings_plot_base64} 
+                                                    alt="Market Demand Trend for Next 3 Years" 
+                                                    className="img-fluid rounded pointer-events-none" 
+                                                    style={{ maxHeight: '450px', width: '100%', objectFit: 'contain' }} 
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             {roadmap.domain && roadmap.domain !== "N/A" && (
                                 <div className="row g-4 mb-4">
                                     <div className="col-md-4">
