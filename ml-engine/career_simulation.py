@@ -176,6 +176,38 @@ def generate_openings_plot(historical_data, target_job):
         print(f"Error generating plot: {e}")
         return None
 
+def get_matched_skills(user_skills_set, job_skills_set):
+    skill_aliases = {
+        "aws": ["cloud", "amazon web services", "infrastructure"],
+        "azure": ["cloud", "microsoft azure", "infrastructure"],
+        "gcp": ["cloud", "google cloud", "infrastructure"],
+        "cybersecurity": ["security", "penetration testing", "firewall", "encryption"],
+        "ui/ux design": ["ui", "ux", "user interface", "user experience"],
+        "figma": ["wireframing", "prototyping", "design systems", "ui", "ux"],
+        "adobe xd": ["wireframing", "prototyping", "design systems", "ui", "ux"],
+        "vue.js": ["vue"],
+        "angular": ["angular"],
+        "react": ["react"],
+        "node.js": ["node"],
+        "agile/scrum": ["agile", "scrum"],
+        "machine learning": ["ml", "algorithms"],
+        "artificial intelligence": ["ai"],
+        "deep learning": ["dl", "neural networks", "cnns", "transformers"],
+        "c++": ["c/c++", "c#/c++", "embedded c++"],
+        "c#": ["c#/c++", "c#"],
+        "java": ["java programming", "python/java"]
+    }
+    
+    matching_skills = set()
+    for u_skill in user_skills_set:
+        match_terms = skill_aliases.get(u_skill, []) + [u_skill]
+        for j_skill in job_skills_set:
+            for term in match_terms:
+                if term in j_skill or j_skill in term:
+                    matching_skills.add(j_skill)
+                    break
+    return matching_skills
+
 def simulate_career_path(user_skills: list[str], target_job: str) -> dict:
     target = target_job.lower().strip()
     
@@ -204,8 +236,9 @@ def simulate_career_path(user_skills: list[str], target_job: str) -> dict:
     user_skills_set = set([s.lower().strip() for s in user_skills])
     job_skills_set = set([s.lower().strip() for s in job_skills])
     
-    present_skills = list(user_skills_set.intersection(job_skills_set))
-    missing_skills = list(job_skills_set.difference(user_skills_set))
+    matched_job_skills = get_matched_skills(user_skills_set, job_skills_set)
+    present_skills = list(matched_job_skills)
+    missing_skills = list(job_skills_set.difference(matched_job_skills))
     
     return {
         "target_job": target_job.title(),
@@ -240,10 +273,10 @@ def recommend_jobs(user_skills: list[str], user_interests: list[str] = [], top_n
         if total_required_skills == 0 and total_required_interests == 0:
             continue
             
-        matching_skills = user_skills_set.intersection(job_skills_set)
+        matched_job_skills = get_matched_skills(user_skills_set, job_skills_set)
         matching_interests = user_interests_set.intersection(job_interests_set)
         
-        skill_score = (len(matching_skills) / total_required_skills) * 100 if total_required_skills > 0 else 0
+        skill_score = (len(matched_job_skills) / total_required_skills) * 100 if total_required_skills > 0 else 0
         interest_score = (len(matching_interests) / total_required_interests) * 100 if total_required_interests > 0 else 0
         
         if len(user_skills_set) == 0 and len(user_interests_set) == 0:
@@ -261,7 +294,7 @@ def recommend_jobs(user_skills: list[str], user_interests: list[str] = [], top_n
                 "match_percentage": float(f"{match_percentage:.1f}"),
                 "expected_salary": info.get("expected_salary", "N/A"),
                 "domain": info.get("domain", "N/A"),
-                "missing_skills_count": total_required_skills - len(matching_skills)
+                "missing_skills_count": total_required_skills - len(matched_job_skills)
             })
             
     # Sort by highest match percentage first, then by fewest missing skills

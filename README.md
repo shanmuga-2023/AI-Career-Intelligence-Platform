@@ -163,6 +163,8 @@ FastAPI ML Engine
 * FastAPI
 * Scikit-Learn
 * Pandas
+* Matplotlib
+* Numpy
 
 ---
 
@@ -234,9 +236,9 @@ git clone https://github.com/yourusername/ai-career-platform.git
 
 ---
 
-### 2️⃣ Install frontend dependencies
-
-```
+### 2️⃣ Frontend Setup
+**Requirements:** Node.js (v16+) and npm
+```bash
 cd frontend
 npm install
 npm run dev
@@ -244,9 +246,9 @@ npm run dev
 
 ---
 
-### 3️⃣ Run backend server
-
-```
+### 3️⃣ Backend Setup
+**Requirements:** Node.js (v16+) and npm
+```bash
 cd backend
 npm install
 node server.js
@@ -254,11 +256,13 @@ node server.js
 
 ---
 
-### 4️⃣ Run ML Engine
-
-```
+### 4️⃣ ML Engine Setup
+**Requirements:** Python 3.9+ and pip
+```bash
 cd ml-engine
-source venv/bin/activate
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
