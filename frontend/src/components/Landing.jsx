@@ -17,27 +17,14 @@ const Landing = () => {
                                 Navigate your professional journey with precision. Our AI-driven platform analyzes your unique skills, predicts industry trends, and charts a personalized path to your dream career.
                             </p>
                             <div className="hero-buttons d-flex gap-3">
-                                <Link to="/dashboard" className="btn btn-primary btn-lg custom-btn-primary shadow-sm text-decoration-none">
+                                <Link to="/assessment" className="btn btn-primary btn-lg custom-btn-primary shadow-sm text-decoration-none">
                                     Start Assessment
                                 </Link>
                                 <Link to="/upload" className="btn btn-outline-primary btn-lg custom-btn-outline shadow-sm text-decoration-none">
                                     Analyze Resume
                                 </Link>
                             </div>
-                            <div className="hero-stats mt-5 d-flex gap-4">
-                                <div className="stat-item">
-                                    <h3 className="fw-bold mb-0">98%</h3>
-                                    <small className="text-muted">Prediction Accuracy</small>
-                                </div>
-                                <div className="stat-item">
-                                    <h3 className="fw-bold mb-0">50K+</h3>
-                                    <small className="text-muted">Careers Guided</small>
-                                </div>
-                                <div className="stat-item">
-                                    <h3 className="fw-bold mb-0">24/7</h3>
-                                    <small className="text-muted">AI Assistance</small>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div className="col-lg-6 mt-5 mt-lg-0 hero-visual">

@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from skill_matching import calculate_skill_match
 from employability_model import predict_employability
-from career_simulation import simulate_career_path
+from career_simulation import simulate_career_path, recommend_jobs
 
 app = FastAPI(title="ML Engine API")
 
@@ -19,6 +19,9 @@ app.add_middleware(
 class SkillMatchRequest(BaseModel):
     user_skills: List[str]
     job_skills: List[str]
+
+class RecommendRequest(BaseModel):
+    user_skills: List[str]
 
 class EmployabilityRequest(BaseModel):
     num_skills: int
@@ -46,4 +49,9 @@ def predict_score(req: EmployabilityRequest):
 @app.post("/simulate-career")
 def simulate(req: CareerSimRequest):
     result = simulate_career_path(req.user_skills, req.target_job)
+    return {"success": True, "data": result}
+
+@app.post("/recommend-jobs")
+def recommend_endpoint(req: RecommendRequest):
+    result = recommend_jobs(req.user_skills)
     return {"success": True, "data": result}

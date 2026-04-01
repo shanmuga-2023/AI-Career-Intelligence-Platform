@@ -1,28 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './CareerRoadmap.css';
 
 function CareerRoadmap() {
-    const [userSkills, setUserSkills] = useState('');
-    const [targetJob, setTargetJob] = useState('');
+    const location = useLocation();
+    const [userSkills, setUserSkills] = useState(location.state?.userSkills || '');
+    const [targetJob, setTargetJob] = useState(location.state?.targetJob || '');
     const [roadmap, setRoadmap] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!userSkills.trim() || !targetJob.trim()) return;
+    // Auto-fetch if navigating from CareerCompass
+    useEffect(() => {
+        if (location.state?.userSkills && location.state?.targetJob) {
+            generateRoadmap(location.state.userSkills, location.state.targetJob);
+        }
+    }, [location.state]);
 
+    const generateRoadmap = async (skillsToUse, jobToUse) => {
         setLoading(true);
         setError(null);
         setRoadmap(null);
 
         try {
             // Assuming ML Engine is running on port 8000
-            const skillsArray = userSkills.split(',').map(s => s.trim()).filter(s => s);
+            const skillsArray = skillsToUse.split(',').map(s => s.trim()).filter(s => s);
             const response = await axios.post('http://localhost:8000/simulate-career', {
                 user_skills: skillsArray,
-                target_job: targetJob.trim()
+                target_job: jobToUse.trim()
             });
 
             if (response.data.success && !response.data.data.error) {
@@ -36,6 +42,12 @@ function CareerRoadmap() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!userSkills.trim() || !targetJob.trim()) return;
+        generateRoadmap(userSkills, targetJob);
     };
 
     return (
@@ -117,6 +129,60 @@ function CareerRoadmap() {
                                     </div>
                                 </div>
                             </div>
+                            
+                            {roadmap.domain && roadmap.domain !== "N/A" && (
+                                <div className="row g-4 mb-4">
+                                    <div className="col-md-4">
+                                        <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
+                                            <div className="card-body p-3 text-center">
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>Domain</h6>
+                                                <h5 className="fw-bold text-dark mb-0">{roadmap.domain}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
+                                            <div className="card-body p-3 text-center">
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>Difficulty</h6>
+                                                <h5 className="fw-bold text-warning mb-0">{roadmap.difficulty_level}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card h-100 shadow-sm border-0 rounded-4 highlight-card bg-light">
+                                            <div className="card-body p-3 text-center">
+                                                <h6 className="text-muted fw-bold mb-1 text-uppercase letter-spacing-1" style={{fontSize: "0.8rem"}}>AI Automation Risk</h6>
+                                                <h5 className="fw-bold text-danger mb-0">{roadmap.ai_automation_risk}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {roadmap.pros && roadmap.pros.length > 0 && (
+                                <div className="row g-4 mb-4">
+                                    <div className="col-md-6">
+                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{borderTop: "4px solid #198754 !important"}}>
+                                            <div className="card-body p-4">
+                                                <h5 className="text-success fw-bold mb-3"><i className="bi bi-hand-thumbs-up-fill me-2"></i> Pros</h5>
+                                                <ul className="mb-0 text-muted" style={{paddingLeft: "1.2rem"}}>
+                                                    {roadmap.pros.map((p, i) => <li key={i}>{p}</li>)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="card h-100 shadow-sm border-0 rounded-4" style={{borderTop: "4px solid #dc3545 !important"}}>
+                                            <div className="card-body p-4">
+                                                <h5 className="text-danger fw-bold mb-3"><i className="bi bi-hand-thumbs-down-fill me-2"></i> Cons</h5>
+                                                <ul className="mb-0 text-muted" style={{paddingLeft: "1.2rem"}}>
+                                                    {roadmap.cons.map((c, i) => <li key={i}>{c}</li>)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="row g-4 mb-5">
                                 <div className="col-md-6">

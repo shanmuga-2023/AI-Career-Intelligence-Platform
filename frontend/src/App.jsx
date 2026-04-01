@@ -6,6 +6,7 @@ import Landing from './components/Landing';
 import Features from './components/Features';
 import MarketTrends from './components/MarketTrends';
 import CareerRoadmap from './components/CareerRoadmap';
+import CareerCompass from './components/CareerCompass';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
               <Link className="nav-link" to="/chat">AI Assistant</Link>
             </li>
             <li className="nav-item ms-3">
-              <Link className="btn btn-nav-assessment" to="/dashboard">
+              <Link className="btn btn-nav-assessment" to="/assessment">
                 Start Assessment
               </Link>
             </li>
@@ -51,6 +52,7 @@ function App() {
       <div className="container-fluid px-4 px-md-5 mt-4">
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/assessment" element={<CareerCompass />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/features" element={<Features />} />
           <Route path="/trends" element={<MarketTrends />} />

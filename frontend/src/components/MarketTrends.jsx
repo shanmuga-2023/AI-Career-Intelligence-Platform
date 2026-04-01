@@ -60,16 +60,13 @@ function MarketTrends() {
             <div className="row g-4 mb-5">
                 <div className="col-lg-4">
                     <div className="card h-100 shadow-sm border-0 rounded-4 trend-card top-skills-card">
-                        <div className="card-body p-4">
-                            <div className="icon-wrapper mb-3 bg-primary-soft text-primary">
-                                <i className="bi bi-stars fs-3"></i>
-                            </div>
-                            <h4 className="fw-bold mb-4">Top In-Demand Skills</h4>
+                        <div className="card-body p-4 p-lg-5">
+                            <div className="avatar-blue"></div>
+                            <h4 className="fw-bold mb-4" style={{ color: '#1a1a1a' }}>Top In-Demand Skills</h4>
                             <ul className="list-group list-group-flush">
                                 {trends.topSkills.map((skill, index) => (
-                                    <li key={index} className="list-group-item bg-transparent px-0 border-light d-flex align-items-center">
-                                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                                        <span className="fw-medium text-dark">{skill}</span>
+                                    <li key={index} className="list-group-item bg-transparent px-2 border-light d-flex align-items-center">
+                                        <span className="fw-medium text-dark flex-grow-1">{skill}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -79,30 +76,28 @@ function MarketTrends() {
 
                 <div className="col-lg-8">
                     <div className="card h-100 shadow-sm border-0 rounded-4 trend-card roles-card">
-                        <div className="card-body p-4">
-                            <div className="icon-wrapper mb-3 bg-secondary-soft text-secondary">
-                                <i className="bi bi-graph-up-arrow fs-3"></i>
-                            </div>
-                            <h4 className="fw-bold mb-4">Trending Roles & Growth</h4>
+                        <div className="card-body p-4 p-lg-5">
+                            <div className="avatar-green"></div>
+                            <h4 className="fw-bold mb-4" style={{ color: '#1a1a1a' }}>Trending Roles & Growth</h4>
                             <div className="table-responsive">
-                                <table className="table table-hover align-middle mb-0">
+                                <table className="table align-middle mb-0 border-0">
                                     <thead className="table-light">
                                         <tr>
                                             <th scope="col" className="border-0 rounded-start">Role</th>
-                                            <th scope="col" className="border-0 text-center">YoY Growth</th>
+                                            <th scope="col" className="border-0 text-center">Growth</th>
                                             <th scope="col" className="border-0 rounded-end text-end">Avg Salary</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {trends.trendingRoles.map((role, index) => (
                                             <tr key={index}>
-                                                <td className="fw-medium text-dark border-light py-3">{role.role}</td>
-                                                <td className="text-center border-light py-3">
-                                                    <span className="badge bg-success-soft text-success rounded-pill px-3 py-2">
-                                                        {role.growth} <i className="bi bi-arrow-up-short"></i>
+                                                <td className="fw-medium text-dark border-light py-4 px-3" style={{ fontSize: '0.95rem' }}>{role.role}</td>
+                                                <td className="text-center border-light py-4">
+                                                    <span className="growth-badge">
+                                                        {role.growth}
                                                     </span>
                                                 </td>
-                                                <td className="text-end fw-bold text-primary border-light py-3">{role.avgSalary}</td>
+                                                <td className="text-end border-light py-4 px-3 salary-text">{role.avgSalary}</td>
                                             </tr>
                                         ))}
                                     </tbody>

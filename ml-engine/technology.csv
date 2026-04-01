@@ -1,0 +1,76 @@
+tech_id,tech_name,category
+1,Python,Programming Language
+2,Java,Programming Language
+3,C++,Programming Language
+4,C,Programming Language
+5,JavaScript,Programming Language
+6,TypeScript,Programming Language
+7,Dart,Programming Language
+8,Go,Programming Language
+9,Rust,Programming Language
+10,Kotlin,Programming Language
+11,Swift,Programming Language
+12,R,Programming Language
+13,Julia,Programming Language
+14,MATLAB,Programming Language
+15,Solidity,Programming Language
+16,HTML,Web Technology
+17,CSS,Web Technology
+18,React,Web Framework
+19,Angular,Web Framework
+20,Vue.js,Web Framework
+21,Node.js,Backend Runtime
+22,Express.js,Backend Framework
+23,Next.js,Web Framework
+24,Django,Backend Framework
+25,Flask,Backend Framework
+26,Flutter,Mobile Framework
+27,React Native,Mobile Framework
+28,Android SDK,Mobile Platform
+29,iOS SDK,Mobile Platform
+30,TensorFlow,AI Framework
+31,PyTorch,AI Framework
+32,Scikit-learn,ML Library
+33,Keras,AI Framework
+34,OpenCV,Computer Vision
+35,Hugging Face Transformers,NLP Library
+36,Hadoop,Big Data
+37,Apache Spark,Big Data
+38,Kafka,Data Streaming
+39,Airflow,Data Pipeline
+40,PostgreSQL,Database
+41,MySQL,Database
+42,MongoDB,Database
+43,Redis,Database
+44,Cassandra,Database
+45,AWS,Cloud Platform
+46,Microsoft Azure,Cloud Platform
+47,Google Cloud,Cloud Platform
+48,Firebase,Cloud Platform
+49,Docker,DevOps Tool
+50,Kubernetes,DevOps Tool
+51,Terraform,Infrastructure Tool
+52,Jenkins,CI/CD Tool
+53,Git,Version Control
+54,GitHub Actions,CI/CD Tool
+55,Wireshark,Security Tool
+56,Metasploit,Security Tool
+57,Nmap,Security Tool
+58,Burp Suite,Security Tool
+59,Kali Linux,Security Platform
+60,Web3.js,Blockchain Library
+61,Hardhat,Blockchain Tool
+62,Truffle,Blockchain Framework
+63,Ganache,Blockchain Tool
+64,Unity,Game Engine
+65,Unreal Engine,Game Engine
+66,OpenGL,Graphics API
+67,Vulkan,Graphics API
+68,Three.js,Graphics Library
+69,ROS,Robotics Framework
+70,Arduino,Embedded Platform
+71,Raspberry Pi,Embedded Platform
+72,Gazebo,Robotics Simulator
+73,WebXR,XR Technology
+74,A-Frame,XR Framework
+75,Blender,3D Software

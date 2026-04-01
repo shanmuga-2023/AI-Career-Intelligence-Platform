@@ -5,10 +5,7 @@
 }
 
 .text-gradient {
-    background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1a1a1a;
 }
 
 .trend-card {
@@ -16,11 +13,13 @@
     background-color: #ffffff;
     position: relative;
     overflow: hidden;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
 
 .trend-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
 }
 
 .trend-card::before {
@@ -33,42 +32,62 @@
 }
 
 .top-skills-card::before {
-    background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+    background-color: #3b82f6;
 }
 
 .roles-card::before {
-    background: linear-gradient(90deg, #10B981, #34D399);
+    background-color: #10b981;
 }
 
-
-.icon-wrapper {
-    width: 60px;
-    height: 60px;
+.avatar-blue {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #ebf5ff;
+    margin-bottom: 20px;
 }
 
-.bg-primary-soft {
-    background-color: rgba(59, 130, 246, 0.1);
-}
-
-.bg-secondary-soft {
-    background-color: rgba(16, 185, 129, 0.1);
-}
-
-.bg-success-soft {
-    background-color: rgba(25, 135, 84, 0.1);
+.avatar-green {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #ecfdf5;
+    margin-bottom: 20px;
 }
 
 .list-group-item {
     transition: background-color 0.2s;
+    font-size: 0.95rem;
+    color: #333333;
+    padding: 12px 0;
 }
 
 .list-group-item:hover {
     background-color: #f8f9fa !important;
-    border-radius: 0.5rem;
+    padding-left: 8px;
+}
+
+.table-light th {
+    background-color: #f9fafb !important;
+    color: #111827;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 14px 16px;
+}
+
+.growth-badge {
+    background-color: #ecfdf5;
+    color: #10b981;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.salary-text {
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 0.95rem;
 }
 
 @keyframes fadeIn {

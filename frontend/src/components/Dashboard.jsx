@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Dashboard() {
@@ -81,54 +82,17 @@ function Dashboard() {
             </div>
 
             <div className="row">
-                {/* Assessment Toggle Button */}
+                {/* Assessment Navigation Button */}
                 <div className="col-12 mb-4 text-center">
-                    <button
-                        className={`btn ${showAssessmentForm ? 'btn-outline-danger' : 'btn-warning'} btn-lg fw-bold px-5 py-3 shadow-sm rounded-pill transition-all`}
+                    <Link
+                        className="btn btn-warning btn-lg fw-bold px-5 py-3 shadow-sm rounded-pill transition-all"
                         style={{ transition: 'all 0.3s ease' }}
-                        onClick={() => setShowAssessmentForm(!showAssessmentForm)}
+                        to="/assessment"
                     >
-                        <i className={`bi ${showAssessmentForm ? 'bi-x-circle' : 'bi-play-circle'} me-2`}></i>
-                        {showAssessmentForm ? 'Cancel Assessment' : 'Start Assessment'}
-                    </button>
+                        <i className="bi bi-play-circle me-2"></i>
+                        Start Assessment
+                    </Link>
                 </div>
-
-                {/* Assessment Form */}
-                {showAssessmentForm && (
-                    <div className="col-12 mb-4">
-                        <div className="card shadow-sm border-0">
-                            <div className="card-header bg-dark text-white">
-                                <h5 className="mb-0">Start Assessment</h5>
-                            </div>
-                            <div className="card-body">
-                                <form onSubmit={handleAssessmentSubmit}>
-                                    <div className="row">
-                                        <div className="col-md-6 mb-3">
-                                            <label className="form-label fw-bold">Basic Information (Name)</label>
-                                            <input type="text" className="form-control" placeholder="Enter your full name" required value={assessName} onChange={(e) => setAssessName(e.target.value)} />
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-                                            <label className="form-label fw-bold">Area of Interest</label>
-                                            <input type="text" className="form-control" placeholder="e.g., Data Science, Web Development" required value={assessInterest} onChange={(e) => setAssessInterest(e.target.value)} />
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-                                            <label className="form-label fw-bold">Soft Skills needed to learn</label>
-                                            <input type="text" className="form-control" placeholder="e.g., Communication, Leadership" value={assessSoftSkills} onChange={(e) => setAssessSoftSkills(e.target.value)} />
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-                                            <label className="form-label fw-bold">Technical Skills needed to learn</label>
-                                            <input type="text" className="form-control" placeholder="e.g., Python, React, AWS" value={assessTechSkills} onChange={(e) => setAssessTechSkills(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    <button type="submit" className="btn btn-primary d-block w-100">Submit Assessment</button>
-
-                                    {assessStatus === 'success' && <div className="alert alert-success mt-3 mb-0">Assessment saved successfully!</div>}
-                                    {assessStatus === 'error' && <div className="alert alert-danger mt-3 mb-0">Error saving assessment. Please try again.</div>}
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                )}
 
                 {/* Skill Matcher */}
                 <div className="col-md-6 mb-4">
