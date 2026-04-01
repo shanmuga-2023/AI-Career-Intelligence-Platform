@@ -11,7 +11,7 @@ const Landing = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6 hero-text-content">
                             <h1 className="hero-title fw-bold mb-4">
-                                Unlock Your Potential with <span className="highlight-text">CareerAI</span>
+                                Unlock Your Potential with <span className="highlight-text">EduTech</span>
                             </h1>
                             <p className="hero-description mb-5">
                                 Navigate your professional journey with precision. Our AI-driven platform analyzes your unique skills, predicts industry trends, and charts a personalized path to your dream career.

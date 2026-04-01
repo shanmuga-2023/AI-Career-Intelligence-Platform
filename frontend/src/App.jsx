@@ -13,7 +13,7 @@ function App() {
       {/* Full Width Navbar */}
       <nav className="navbar navbar-custom w-100 px-3 px-md-4 d-flex align-items-center flex-nowrap" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
         <Link className="navbar-brand fw-bold mb-0 h1 flex-shrink-0 me-4" to="/">
-          CareerAI
+          EduTech
         </Link>
         <div className="d-flex align-items-center pb-1">
           <ul className="navbar-nav flex-row align-items-center m-0 p-0 gap-2 gap-md-3 flex-nowrap">

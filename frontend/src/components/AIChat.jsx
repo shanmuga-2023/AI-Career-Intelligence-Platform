@@ -6,7 +6,7 @@ import './CareerRoadmap.css';
 function AIChat() {
     const [question, setQuestion] = useState('');
     const [chatLog, setChatLog] = useState([
-        { role: 'ai', text: 'Hello! I am your AI Career Assistant powered by Gemini. Ask me about careers, required skills, or roadmaps!' }
+        { role: 'ai', text: 'Hello! I am your AI Career Assistant. Ask me about careers, required skills, or roadmaps!' }
     ]);
     const [loading, setLoading] = useState(false);
 
