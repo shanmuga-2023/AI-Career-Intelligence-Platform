@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const { extractSkills } = require('../services/resumeService');
-const { getCareerAdvice } = require('../services/aiService');
+const { getCareerAdvice, conductMockInterview } = require('../services/aiService');
 const fs = require('fs');
 const path = require('path');
 
@@ -179,6 +179,22 @@ router.get('/market-trends', (req, res) => {
     } catch (err) {
         console.error('Error serving market trends:', err);
         res.status(500).json({ error: 'Failed to process market trends' });
+    }
+});
+
+// Mock Interview route
+router.post('/mock-interview', async (req, res) => {
+    try {
+        const { role, techStack, message, history } = req.body;
+        if (!role || !techStack) {
+            return res.status(400).json({ error: 'Role and Tech Stack are required' });
+        }
+
+        const aiResponse = await conductMockInterview(role, techStack, message, history);
+        res.json({ success: true, answer: aiResponse });
+    } catch (error) {
+        console.error('Error conducting mock interview:', error);
+        res.status(500).json({ error: 'Internal server error from AI service' });
     }
 });
 

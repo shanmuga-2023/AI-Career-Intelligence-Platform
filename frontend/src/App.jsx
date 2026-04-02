@@ -7,6 +7,7 @@ import MarketTrends from './components/MarketTrends';
 import CareerRoadmap from './components/CareerRoadmap';
 import CareerCompass from './components/CareerCompass';
 import ProjectTranslator from './components/ProjectTranslator';
+import MockInterview from './components/MockInterview';
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
             <li className="nav-item">
               <Link className="btn-nav-assessment" to="/translator">Project Translator</Link>
             </li>
+            <li className="nav-item">
+              <Link className="btn-nav-assessment" to="/interview">Mock Interview</Link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -56,6 +60,7 @@ function App() {
           <Route path="/upload" element={<ResumeUpload />} />
           <Route path="/chat" element={<AIChat />} />
           <Route path="/translator" element={<ProjectTranslator />} />
+          <Route path="/interview" element={<MockInterview />} />
         </Routes>
       </div>
     </Router>
