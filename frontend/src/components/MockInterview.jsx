@@ -91,18 +91,23 @@ function MockInterview() {
 
     if (phase === 'setup') {
         return (
-            <div className="interview-wrapper py-5">
+            <div className="career-roadmap-container py-5">
+                <div className="row justify-content-center mb-5">
+                    <div className="col-12 col-md-8 text-center">
+                        <h2 className="display-5 fw-bold text-gradient mb-3">Mock Interview Simulator</h2>
+                        <p className="lead text-muted">Configure your target role and let our AI interrogate you with relevant technical questions.</p>
+                    </div>
+                </div>
                 <div className="row justify-content-center">
-                    <h2 className="title mb-4 text-center">Mock Interview Simulator</h2>
-                    <div className="col-lg-6 mb-4">
-                        <div className="glass-card p-4">
-                            <h4 className="mb-4 text-white">Interview Configuration</h4>
+                    <div className="col-lg-6 col-md-8 mb-4">
+                        <div className="card shadow-sm border-0 rounded-4 roadmap-form-card p-4 mx-auto">
+                            <h4 className="mb-4 text-center fw-bold">Interview Configuration</h4>
                             <form onSubmit={startInterview}>
                                 <div className="mb-4">
-                                    <label className="form-label text-muted">Target Job Role</label>
+                                    <label className="form-label text-muted fw-bold small text-uppercase letter-spacing-1">Target Job Role</label>
                                     <input 
                                         type="text" 
-                                        className="form-control glass-input" 
+                                        className="form-control bg-light border-0 py-2" 
                                         value={role} 
                                         onChange={e => setRole(e.target.value)} 
                                         required 
@@ -110,17 +115,17 @@ function MockInterview() {
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="form-label text-muted">Tech Stack to cover</label>
+                                    <label className="form-label text-muted fw-bold small text-uppercase letter-spacing-1">Tech Stack to cover</label>
                                     <input 
                                         type="text" 
-                                        className="form-control glass-input" 
+                                        className="form-control bg-light border-0 py-2" 
                                         value={techStack} 
                                         onChange={e => setTechStack(e.target.value)} 
                                         required 
                                         placeholder="e.g. React, Next.js, CSS"
                                     />
                                 </div>
-                                <button type="submit" className="btn interview-btn w-100 mt-2">
+                                <button type="submit" className="btn btn-primary w-100 fw-bold py-2 mt-2">
                                     Start Interview
                                 </button>
                             </form>
@@ -132,18 +137,21 @@ function MockInterview() {
     }
 
     return (
-        <div className="interview-wrapper py-3">
+        <div className="career-roadmap-container py-4">
             <div className="row justify-content-center h-100">
                 <div className="col-lg-10 h-100 d-flex flex-column">
-                    <h3 className="title mb-4 text-center">Interviewing for {role}</h3>
+                    <div className="text-center mb-4">
+                         <h3 className="fw-bold text-gradient">Interviewing for {role}</h3>
+                    </div>
                     
-                    <div className="glass-card flex-grow-1 d-flex flex-column overflow-hidden" style={{ minHeight: '65vh' }}>
+                    <div className="card shadow-sm border-0 rounded-4 roadmap-form-card mb-4" style={{ height: '65vh', display: 'flex', flexDirection: 'column' }}>
                         
-                        <div className="chat-container flex-grow-1 p-3 overflow-auto">
+                        <div className="card-body p-4 p-md-5 bg-light" style={{ overflowY: 'auto', flexGrow: 1, borderRadius: '1rem 1rem 0 0' }}>
                             {messages.map((msg, i) => (
-                                <div key={i} className={`mb-3 d-flex flex-column ${msg.role === 'user' ? 'align-items-end' : 'align-items-start'}`}>
-                                    <span className="badge mb-1" style={{ color: '#94a3b8' }}>{msg.role === 'user' ? 'You' : 'AI Interviewer'}</span>
-                                    <div className={`chat-bubble ${msg.role === 'user' ? 'user-bubble' : 'ai-bubble'}`}>
+                                <div key={i} className={`mb-3 text-${msg.role === 'user' ? 'end' : 'start'}`}>
+                                    <span className="badge mb-1 text-muted">{msg.role === 'user' ? 'You' : 'AI Interviewer'}</span>
+                                    <br />
+                                    <div className={`d-inline-block p-3 rounded-4 text-start ${msg.role === 'user' ? 'bg-primary text-white shadow-sm' : 'bg-white border-0 shadow-sm'}`} style={{ maxWidth: '85%' }}>
                                         {msg.role === 'ai' ? (
                                             <div
                                                 className="react-markdown-container m-0 p-0"
@@ -156,18 +164,21 @@ function MockInterview() {
                                 </div>
                             ))}
                             {loading && (
-                                <div className="mb-3 d-flex flex-column align-items-start">
-                                    <span className="badge mb-1" style={{ color: '#94a3b8' }}>AI Interviewer</span>
-                                    <div className="chat-bubble ai-bubble fst-italic">Analyzing response and generating next question...</div>
+                                <div className="mb-3 text-start">
+                                    <span className="badge mb-1 text-muted">AI Interviewer</span>
+                                    <br />
+                                    <div className="d-inline-block p-3 rounded-4 bg-white border-0 shadow-sm fst-italic text-muted">
+                                        Analyzing response and generating next question...
+                                    </div>
                                 </div>
                             )}
                             <div ref={messagesEndRef} />
                         </div>
 
-                        <div className="chat-input-area mt-3 pt-3 border-top" style={{ borderColor: 'rgba(255,255,255,0.1) !important' }}>
-                            <div className="input-group">
+                        <div className="card-footer bg-white p-4" style={{ borderRadius: '0 0 1rem 1rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                            <div className="input-group input-group-lg shadow-sm rounded-pill overflow-hidden bg-white">
                                 <button 
-                                    className={`btn ${isListening ? 'btn-danger' : 'btn-outline-info'} voice-btn`} 
+                                    className={`btn ${isListening ? 'btn-danger' : 'btn-light px-4 border-end'}`} 
                                     onClick={toggleListening}
                                     type="button"
                                     title="Dictate Answer"
@@ -175,7 +186,7 @@ function MockInterview() {
                                     {isListening ? '🛑 Stop' : '🎤 Mic'}
                                 </button>
                                 <textarea
-                                    className="form-control glass-input mx-2"
+                                    className="form-control border-0 px-3"
                                     placeholder="Type your answer here or use the mic..."
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
@@ -185,11 +196,11 @@ function MockInterview() {
                                             sendMessage();
                                         }
                                     }}
-                                    rows="2"
-                                    style={{ resize: 'none' }}
+                                    rows="1"
+                                    style={{ resize: 'none', paddingTop: '0.8rem' }}
                                 />
                                 <button 
-                                    className="btn interview-btn px-4" 
+                                    className="btn btn-primary px-4 fw-bold" 
                                     onClick={() => sendMessage()} 
                                     disabled={loading || !inputValue.trim()}
                                 >
