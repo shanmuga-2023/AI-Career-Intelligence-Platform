@@ -29,7 +29,7 @@ app.use(cors({
 app.use(express.json());
 
 // Health check endpoints for Render monitoring (supports /health and /var/data)
-app.get(['/health', '/var/data*'], (req, res) => {
+app.get(['/health', '/var/data', '/var/data/*path'], (req, res) => {
     res.status(200).json({
         status: 'healthy',
         timestamp: new Date().toISOString(),
