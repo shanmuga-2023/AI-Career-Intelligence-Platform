@@ -28,21 +28,25 @@ function ResumeUpload() {
             const extractedData = res.data.data;
             setResult(extractedData);
 
-            if (extractedData.detectedSkills && extractedData.detectedSkills.length > 0) {
-                const mlRes = await axios.post(`${ML_API_BASE_URL}/recommend-jobs`, {
-                    user_skills: extractedData.detectedSkills,
-                    user_interests: []
-                });
-                if (mlRes.data.success) {
-                    setRecommendations(mlRes.data.data);
-                    setTimeout(() => {
-                        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 150);
+            if (extractedData && extractedData.detectedSkills && extractedData.detectedSkills.length > 0) {
+                try {
+                    const mlRes = await axios.post(`${ML_API_BASE_URL}/recommend-jobs`, {
+                        user_skills: extractedData.detectedSkills,
+                        user_interests: []
+                    });
+                    if (mlRes.data && mlRes.data.success) {
+                        setRecommendations(mlRes.data.data);
+                        setTimeout(() => {
+                            resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 150);
+                    }
+                } catch (mlErr) {
+                    console.warn('ML job recommendation fallback:', mlErr.message);
                 }
             }
         } catch (e) {
-            console.error(e);
-            alert('Error analyzing resume.');
+            console.error('Resume upload error:', e);
+            alert('Could not process PDF resume. Please ensure the file is a readable PDF.');
         } finally {
             setLoading(false);
         }
