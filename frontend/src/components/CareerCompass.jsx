@@ -69,7 +69,7 @@ function CareerCompass() {
             }
         } catch (err) {
             console.error(err);
-            setError('Error connecting to ML Engine. Ensure python backend is running on port 8000.');
+            setError('Unable to fetch recommendations. Please check network connection.');
         } finally {
             setLoading(false);
         }
