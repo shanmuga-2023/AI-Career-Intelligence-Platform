@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL, ML_API_BASE_URL } from '../config/api';
 import './CareerRoadmap.css';
 
 function ResumeUpload() {
@@ -21,14 +22,14 @@ function ResumeUpload() {
         formData.append('resume', file);
 
         try {
-            const res = await axios.post('http://127.0.0.1:5050/api/upload-resume', formData, {
+            const res = await axios.post(`${API_BASE_URL}/api/upload-resume`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const extractedData = res.data.data;
             setResult(extractedData);
 
             if (extractedData.detectedSkills && extractedData.detectedSkills.length > 0) {
-                const mlRes = await axios.post('http://localhost:8000/recommend-jobs', {
+                const mlRes = await axios.post(`${ML_API_BASE_URL}/recommend-jobs`, {
                     user_skills: extractedData.detectedSkills,
                     user_interests: []
                 });

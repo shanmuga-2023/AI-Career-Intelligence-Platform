@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ML_API_BASE_URL } from '../config/api';
 import './CareerCompass.css';
 
 const SKILLS_LIST = [
@@ -54,7 +55,7 @@ function CareerCompass() {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.post('http://localhost:8000/recommend-jobs', {
+            const res = await axios.post(`${ML_API_BASE_URL}/recommend-jobs`, {
                 user_skills: selectedSkills,
                 user_interests: selectedInterests
             });

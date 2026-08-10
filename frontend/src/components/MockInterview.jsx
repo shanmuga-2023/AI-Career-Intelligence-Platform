@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { marked } from 'marked';
+import { API_BASE_URL } from '../config/api';
 import './MockInterview.css';
 
 function MockInterview() {
@@ -74,7 +75,7 @@ function MockInterview() {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://127.0.0.1:5050/api/mock-interview', {
+            const res = await axios.post(`${API_BASE_URL}/api/mock-interview`, {
                 role,
                 techStack,
                 message: textToSend,

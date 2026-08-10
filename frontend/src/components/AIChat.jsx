@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { marked } from 'marked';
+import { API_BASE_URL } from '../config/api';
 import './CareerRoadmap.css';
 
 function AIChat() {
@@ -19,7 +20,7 @@ function AIChat() {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://127.0.0.1:5050/api/career-advice', {
+            const res = await axios.post(`${API_BASE_URL}/api/career-advice`, {
                 question,
                 context: { user_topic: 'career gap analysis' }
             });

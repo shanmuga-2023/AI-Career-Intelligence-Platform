@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL, ML_API_BASE_URL } from '../config/api';
 
 function Dashboard() {
     const [userSkills, setUserSkills] = useState('python, sql, pandas');
@@ -22,7 +23,7 @@ function Dashboard() {
 
     const handleMatchSkills = async () => {
         try {
-            const res = await axios.post('http://127.0.0.1:8000/match-skills', {
+            const res = await axios.post(`${ML_API_BASE_URL}/match-skills`, {
                 user_skills: userSkills.split(',').map(s => s.trim()),
                 job_skills: jobSkills.split(',').map(s => s.trim())
             });
@@ -35,7 +36,7 @@ function Dashboard() {
 
     const handlePredictEmployability = async () => {
         try {
-            const res = await axios.post('http://127.0.0.1:8000/predict-employability', {
+            const res = await axios.post(`${ML_API_BASE_URL}/predict-employability`, {
                 num_skills: numSkills,
                 experience_years: expYears,
                 certifications_count: certCount
@@ -50,7 +51,7 @@ function Dashboard() {
     const handleAssessmentSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5050/api/assessment', {
+            const res = await axios.post(`${API_BASE_URL}/api/assessment`, {
                 name: assessName,
                 area_of_interest: assessInterest,
                 soft_skills: assessSoftSkills,

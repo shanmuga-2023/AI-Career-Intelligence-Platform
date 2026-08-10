@@ -1,7 +1,7 @@
 {
   "name": "ai-skilll-monorepo",
   "version": "1.0.0",
-  "description": "Root configuration for Railway Nixpacks",
+  "description": "AI Career Intelligence Platform Monorepo",
   "private": true,
   "engines": {
     "node": ">=18"

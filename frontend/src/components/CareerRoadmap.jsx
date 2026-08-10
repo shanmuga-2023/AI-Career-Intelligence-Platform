@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { ML_API_BASE_URL } from '../config/api';
 import './CareerRoadmap.css';
 
 function CareerRoadmap() {
@@ -26,7 +27,7 @@ function CareerRoadmap() {
         try {
             // Assuming ML Engine is running on port 8000
             const skillsArray = skillsToUse.split(',').map(s => s.trim()).filter(s => s);
-            const response = await axios.post('http://localhost:8000/simulate-career', {
+            const response = await axios.post(`${ML_API_BASE_URL}/simulate-career`, {
                 user_skills: skillsArray,
                 target_job: jobToUse.trim()
             });

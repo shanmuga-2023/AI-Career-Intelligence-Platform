@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 import './MarketTrends.css';
 
 function MarketTrends() {
@@ -10,7 +11,7 @@ function MarketTrends() {
     useEffect(() => {
         const fetchTrends = async () => {
             try {
-                const response = await axios.get('http://localhost:5050/api/market-trends');
+                const response = await axios.get(`${API_BASE_URL}/api/market-trends`);
                 if (response.data.success) {
                     setTrends(response.data.data);
                 } else {

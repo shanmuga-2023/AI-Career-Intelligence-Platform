@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ML_API_BASE_URL } from '../config/api';
 import './ProjectTranslator.css';
 
 const ProjectTranslator = () => {
@@ -17,7 +18,7 @@ const ProjectTranslator = () => {
     setLoading(true);
     setResults(null);
     try {
-      const response = await fetch('http://127.0.0.1:8000/translate-project', {
+      const response = await fetch(`${ML_API_BASE_URL}/translate-project`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
