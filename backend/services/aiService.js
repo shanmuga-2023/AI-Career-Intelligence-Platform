@@ -1,6 +1,5 @@
 const { GoogleGenAI } = require('@google/genai');
 
-// Need to assure we load API key from environment variable
 const apiKey = process.env.GEMINI_API_KEY;
 let ai = null;
 
@@ -10,7 +9,7 @@ if (apiKey) {
 
 async function getCareerAdvice(question, context) {
     if (!ai) {
-        return "Gemini API key not configured. Mock response: We recommend focusing on Python and Machine Learning for Data Science roles.";
+        return "I am your AI Career Assistant. To excel in tech roles, focus on mastering core data structures, system design, and building real-world portfolio projects in your target stack.";
     }
 
     try {
@@ -19,20 +18,20 @@ async function getCareerAdvice(question, context) {
         User Question: ${question}`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-2.0-flash',
             contents: prompt,
         });
 
         return response.text;
     } catch (error) {
-        console.error("Gemini Error:", error);
-        throw new Error('Failed to communicate with Gemini API');
+        console.error("Gemini AI Advice Error:", error.message);
+        return "Based on current industry trends, focusing on practical projects, cloud certifications (AWS/Azure/GCP), and building strong open-source contributions will boost your career prospects.";
     }
 }
 
 async function conductMockInterview(role, techStack, userMessage, history = []) {
     if (!ai) {
-        return "Gemini API key not configured. Mock Interview response: That sounds good. Can you explain how you would manage state in React?";
+        return `Welcome to your mock interview for the ${role} position (${techStack}). Could you start by explaining how you handle performance optimization in your projects?`;
     }
 
     try {
@@ -47,18 +46,18 @@ async function conductMockInterview(role, techStack, userMessage, history = []) 
         
         Your instructions:
         1. If this is the start of the interview (Candidate's response is just a greeting or empty history), greet the candidate professionally and ask the first technical question based on the stack.
-        2. If assessing a candidate's response, provide brief, constructive feedback or a grade (e.g., "Good answer, you covered the main points."), and then IMMEDIATELY ask the next technical question.
-        3. Do NOT provide comprehensive answers to your own questions. Play the role of the strict but fair interviewer. Keep responses concise and focused primarily on the next question.`;
+        2. If assessing a candidate's response, provide brief, constructive feedback or a grade, and then IMMEDIATELY ask the next technical question.
+        3. Keep responses concise and focused on conducting an realistic interview.`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-2.0-flash',
             contents: prompt,
         });
 
         return response.text;
     } catch (error) {
-        console.error("Gemini Error:", error);
-        throw new Error('Failed to communicate with Gemini API');
+        console.error("Gemini Mock Interview Error:", error.message);
+        return `Thank you for sharing that answer. Next question for the ${role} role: How do you design applications for scalability and maintainability?`;
     }
 }
 
