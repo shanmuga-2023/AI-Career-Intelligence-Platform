@@ -39,7 +39,7 @@ function CareerRoadmap() {
             }
         } catch (err) {
             console.error('Error generating roadmap:', err);
-            setError('Network error. Ensure ML Engine is running on port 8000.');
+            setError('Failed to generate career roadmap. Please ensure backend service is reachable.');
         } finally {
             setLoading(false);
         }
